@@ -28,6 +28,7 @@ data: {"value": 1}
 server closes connection when done without requirement for closing message
 
 ## Flask
+API endpoint retrieves generator from OpenAI client and generates stream of events capturing completion.
 ```
 def generate(messages, temperature, stream=False):
     response = ""
@@ -59,9 +60,10 @@ def get_hello():
 class Hello(Resource):
     def get(self):
         return Response(hello.get_hello(), mimetype="text/event-stream")
-
+```
 
 ## JavaScript
+Browser requests stream from server and then listens for and processes events
 ### With EventStream
 ```
 const eventSource = new EventSource("127.0.0.1/hello"); // Replace with your server endpoint
