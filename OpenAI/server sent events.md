@@ -1,5 +1,10 @@
 # Server Sent Events
 
+process openai using eventstream
+update flask code per best practices for sse
+process flask using eventstream
+process flask using react
+
 ## Overview
 client sends request to server:
 ```
@@ -90,6 +95,7 @@ class Hello(Resource):
 ## JavaScript
 Browser requests stream from server and then listens for and processes events
 ### With EventStream
+The EventStream library simpifies SSE processing, but I don't think it works with OpenAI because OpenAI requires posting data to open the connection
 ```
 const  API_URL = 'http://127.0.0.1/hello'
 const eventSource = new EventSource(API_URL); // Replace with your server endpoint
