@@ -26,6 +26,26 @@ data: {"value": 1}
 ```
 
 server closes connection when done without requirement for closing message
+## OpenAI Stream format
+```
+data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk","created":1708012496,"model":"gpt-3.5-turbo-0613","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" revealed"},"logprobs":null,"finish_reason":null}]}
+
+data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk","created":1708012496,"model":"gpt-3.5-turbo-0613","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" the"},"logprobs":null,"finish_reason":null}]}
+
+data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk","created":1708012496,"model":"gpt-3.5-turbo-0613","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" existence"},"logprobs":null,"finish_reason":null}]}
+
+data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk","created":1708012496,"model":"gpt-3.5-turbo-0613","system_finger
+data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk","created":1708012496,"model":"gpt-3.5-turbo-0613","system_fingerprint":null,"choices":[{"index":0,"delta":{},"logprobs":null,"finish_reason":"length"}]}
+
+data: [DONE]
+```
+A given data message can be parsed as follows:
+```
+obj = JSON.parse(data)
+response = obj.choices[0]
+if(!response.finish_reason)
+    delta_content = response.delta.content
+```
 
 ## Flask
 API endpoint retrieves generator from OpenAI client and generates stream of events capturing completion.
