@@ -66,7 +66,8 @@ class Hello(Resource):
 Browser requests stream from server and then listens for and processes events
 ### With EventStream
 ```
-const eventSource = new EventSource("127.0.0.1/hello"); // Replace with your server endpoint
+const  API_URL = 'http://127.0.0.1/hello'
+const eventSource = new EventSource(API_URL); // Replace with your server endpoint
 
 eventSource.onmessage = (event) => {
   // Process the received event
@@ -84,32 +85,14 @@ eventSource.onerror = (error) => {
 };
 
 // Optionally, add event listeners for specific event types:
-eventSource.addEventListener("new-message", (event) => {
+eventSource.addEventListener("data", (event) => {
   // Handle "new-message" events specifically
 });
 ```
 ### Without EventStream
 ```
-endpoint = 'API_URL'
-const data = {
-  model: 'gpt-3.5-turbo',
-  messages: messages,
-  temperature: 0.7,
-  max_tokens: 150,
-  top_p: 1.0,
-  frequency_penalty: 0.0,
-  presence_penalty: 0.0,
-  stream: stream
-};
-    
-const response = await fetch(endpoint, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${apiKey}`,
-  },
-  body: JSON.stringify(data),
-});
+const  API_URL = 'http://127.0.0.1/hello'
+const response = await fetch(API_URL});
 
 if (!response.ok) {
   const message = `An error has occurred: ${response.status}`;
