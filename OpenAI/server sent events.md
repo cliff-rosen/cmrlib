@@ -1,9 +1,8 @@
 # Server Sent Events
 
-process openai using eventstream
-update flask code per best practices for sse
-process flask using eventstream
-process flask using react
+- update flask code per best practices for sse
+- process flask using eventstream
+- process flask using react
 
 ## Overview
 client sends request to server:
