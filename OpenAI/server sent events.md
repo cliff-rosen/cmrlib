@@ -40,6 +40,26 @@ data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.c
 
 data: [DONE]
 ```
+
+It's possible for several events to arrive at once. Events can be parsed in JavaScript as follows:
+```
+	function getText(chunk) {
+		chunk = chunk.trim()
+		datas = chunk.split('\n\n')
+		text = ''		
+		for (var i=0; i<datas.length; i++) {
+			data = datas[i].slice(6)
+			if (data[0] == '[') break
+			obj = JSON.parse(data)
+			console.log(obj)
+			resp = obj.choices[0]
+			if(!resp.finish_reason)
+				text = text + resp.delta.content
+		}
+		return text
+	}
+```
+
 A given data message can be parsed as follows:
 ```
 // finish reason => data.choices[0].finish_reason
