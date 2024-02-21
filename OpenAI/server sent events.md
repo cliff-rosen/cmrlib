@@ -34,7 +34,7 @@ data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.c
 
 data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk","created":1708012496,"model":"gpt-3.5-turbo-0613","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" existence"},"logprobs":null,"finish_reason":null}]}
 
-data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk","created":1708012496,"model":"gpt-3.5-turbo-0613","system_finger
+...
 
 data: {"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk","created":1708012496,"model":"gpt-3.5-turbo-0613","system_fingerprint":null,"choices":[{"index":0,"delta":{},"logprobs":null,"finish_reason":"length"}]}
 
@@ -62,8 +62,9 @@ It's possible for several events to arrive at once. Events can be parsed in Java
 
 A given data message can be parsed as follows:
 ```
-// finish reason => data.choices[0].finish_reason
-// delta content => data.choices[0].delta.content
+// data.choices[0] contains the main part of response
+// data.choices[0].finish_reason is null until the final event is sent
+// data.choices[0].delta.content contains the incremental content payload
 
 data = '{"id":"chatcmpl-8sYMaINPl8SKF8YXrJcTuE5zhIaGW","object":"chat.completion.chunk"...}'
 obj = JSON.parse(data)
